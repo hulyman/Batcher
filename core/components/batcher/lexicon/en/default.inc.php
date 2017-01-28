@@ -82,4 +82,7 @@ $_lang['batcher.unpublished'] = 'Unpublished';
 $_lang['batcher.unrichtext'] = 'Richtext Disabled';
 $_lang['batcher.unsearchable'] = 'Unsearchable';
 $_lang['batcher.user_err_nf'] = 'User not found.';
+$_lang['batcher.change_title'] = 'Change Title';
+$_lang['batcher.title'] = 'Title';
+$_lang['batcher.title_err_ns'] = 'Title not specified.';
 

@@ -273,6 +273,26 @@ Ext.extend(Batcher.grid.Resources,MODx.grid.Grid,{
         this.changeDatesWindow.show(e.target);
         return true;
     }
+    ,changeTitle: function(btn,e) {
+        var cs = this.getSelectedAsList();
+        if (cs === false) return false;
+
+        var r = {resources: cs};
+        if (!this.changeTitleWindow) {
+            this.changeTitleWindow = MODx.load({
+                xtype: 'batcher-window-change-title'
+                ,record: r
+                ,listeners: {
+                    'success': {fn:function(r) {
+                       this.refresh();
+                    },scope:this}
+                }
+            });
+        }
+        this.changeTitleWindow.setValues(r);
+        this.changeTitleWindow.show(e.target);
+        return true;
+    }
 
     ,getBatchMenu: function() {
         var bm = [];
@@ -368,6 +388,10 @@ Ext.extend(Batcher.grid.Resources,MODx.grid.Grid,{
         },{
             text: _('batcher.change_authors')
             ,handler: this.changeAuthors
+            ,scope: this
+        },{
+            text: _('batcher.change_title')
+            ,handler: this.changeTitle
             ,scope: this
         });
         return bm;
@@ -525,3 +549,28 @@ Batcher.window.ChangeDates = function(config) {
 };
 Ext.extend(Batcher.window.ChangeDates,MODx.Window);
 Ext.reg('batcher-window-change-dates',Batcher.window.ChangeDates);
+
+
+Batcher.window.ChangeTitle = function (config) {
+    config = config || {};
+    Ext.applyIf(config, {
+        title: _('batcher.change_title')
+        , url: Batcher.config.connector_url
+        , baseParams: {
+            action: 'mgr/resource/changetitle'
+        }
+        , width: 400
+        , fields: [{
+            xtype: 'hidden'
+            , name: 'resources'
+        }, {
+            xtype: 'textfield'
+            , fieldLabel: _('batcher.title')
+            , name: 'title'
+            , anchor: '90%'
+        }]
+    });
+    Batcher.window.ChangeTitle.superclass.constructor.call(this, config);
+};
+Ext.extend(Batcher.window.ChangeTitle, MODx.Window);
+Ext.reg('batcher-window-change-title', Batcher.window.ChangeTitle);

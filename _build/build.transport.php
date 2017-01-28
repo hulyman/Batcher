@@ -54,8 +54,8 @@ $sources= array (
 unset($root);
 
 /* override with your own defines here (see build.config.sample.php) */
-require_once $sources['build'] . 'build.config.php';
-require_once MODX_CORE_PATH . 'model/modx/modx.class.php';
+require_once $sources['build'] . 'build.config.sample.php';
+require_once '../../modx-2.5.4-pl/core/model/modx/modx.class.php';
 
 $modx= new modX();
 $modx->initialize('mgr');

@@ -82,4 +82,7 @@ $_lang['batcher.unpublished'] = 'Снят с публикации';
 $_lang['batcher.unrichtext'] = 'Richtext редактор отключён';
 $_lang['batcher.unsearchable'] = 'Недоступен для поиска';
 $_lang['batcher.user_err_nf'] = 'Пользователь не найден.';
+$_lang['batcher.change_title'] = 'Изменить заголовок';
+$_lang['batcher.title'] = 'Заголовок';
+$_lang['batcher.title_err_ns'] = 'Заголовок не указан.';
 
