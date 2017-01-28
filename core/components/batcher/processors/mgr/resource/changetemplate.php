@@ -36,19 +36,19 @@ if (empty($scriptProperties['resources'])) {
 if (empty($scriptProperties['template'])) {
     return $modx->error->failure($modx->lexicon('batcher.template_err_ns'));
 }
-$template = $modx->getObject('modTemplate',$scriptProperties['template']);
+$template = $modx->getObject('modTemplate', $scriptProperties['template']);
 if (empty($template)) return $modx->error->failure($modx->lexicon('batcher.template_err_nf'));
 
 /* iterate over resources */
-$resourceIds = explode(',',$scriptProperties['resources']);
+$resourceIds = explode(',', $scriptProperties['resources']);
 foreach ($resourceIds as $resourceId) {
-    $resource = $modx->getObject('modResource',$resourceId);
+    $resource = $modx->getObject('modResource', $resourceId);
     if ($resource == null) continue;
 
-    $resource->set('template',$scriptProperties['template']);
+    $resource->set('template', $scriptProperties['template']);
 
     if ($resource->save() === false) {
-        
+
     }
 }
 

@@ -27,7 +27,7 @@
  * @package batcher
  * @subpackage build
  */
-$action= $modx->newObject('modAction');
+$action = $modx->newObject('modAction');
 $action->fromArray(array(
     'id' => 1,
     'namespace' => 'batcher',
@@ -36,10 +36,10 @@ $action->fromArray(array(
     'haslayout' => 1,
     'lang_topics' => 'batcher:default',
     'assets' => '',
-),'',true,true);
+), '', true, true);
 
 /* load menu into action */
-$menu= $modx->newObject('modMenu');
+$menu = $modx->newObject('modMenu');
 $menu->fromArray(array(
     'parent' => 'components',
     'text' => 'batcher',
@@ -48,7 +48,7 @@ $menu->fromArray(array(
     'menuindex' => '0',
     'params' => '',
     'handler' => '',
-),'',true,true);
+), '', true, true);
 $menu->addOne($action);
 
 return $menu;

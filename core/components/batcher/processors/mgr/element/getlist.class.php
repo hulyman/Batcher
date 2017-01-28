@@ -21,33 +21,22 @@
  *
  * @package batcher
  */
+
 /**
  * Get a list of templates
  *
  * @package batcher
  * @subpackage processors
  */
-class BatcherTemplateGetListProcessor extends modObjectGetListProcessor {
+class BatcherTemplateGetListProcessor extends modObjectGetListProcessor
+{
     public $classKey = 'modTemplate';
     public $defaultSortField = 'id';
     public $defaultSortDirection = 'ASC';
     public $checkListPermission = true;
 
-    public function prepareQueryBeforeCount(xPDOQuery $c) {
-
-        $search = $this->getProperty('search');
-        $type = $this->getProperty('element-type');
-        if (!empty($search)) {
-            $c->where(array(
-                'name:LIKE' => '%'.$search.'%',
-                'OR:description:LIKE' => '%'.$search.'%',
-            ));
-        }
-
-        return $c;
-    }
-
-    public function getData() {
+    public function getData()
+    {
         $data = array();
         $limit = intval($this->getProperty('limit'));
         $start = intval($this->getProperty('start'));
@@ -59,40 +48,57 @@ class BatcherTemplateGetListProcessor extends modObjectGetListProcessor {
 
         $c = $this->modx->newQuery($this->classKey);
         $c = $this->prepareQueryBeforeCount($c);
-        $data['total'] = $this->modx->getCount($this->classKey,$c);
+        $data['total'] = $this->modx->getCount($this->classKey, $c);
         $c = $this->prepareQueryAfterCount($c);
 
         $sortClassKey = $this->getSortClassKey();
-        $sortKey = $this->modx->getSelectColumns($sortClassKey,$this->getProperty('sortAlias',$sortClassKey),'',array($this->getProperty('sort')));
+        $sortKey = $this->modx->getSelectColumns($sortClassKey, $this->getProperty('sortAlias', $sortClassKey), '', array($this->getProperty('sort')));
         if (empty($sortKey)) $sortKey = $this->getProperty('sort');
-        $c->sortby($sortKey,$this->getProperty('dir'));
+        $c->sortby($sortKey, $this->getProperty('dir'));
         if ($limit > 0) {
-            $c->limit($limit,$start);
+            $c->limit($limit, $start);
         }
 
-        $data['results'] = $this->modx->getCollection($this->classKey,$c);
+        $data['results'] = $this->modx->getCollection($this->classKey, $c);
         return $data;
     }
 
-    public function prepareRow(xPDOObject $object) {
+    public function prepareQueryBeforeCount(xPDOQuery $c)
+    {
+
+        $search = $this->getProperty('search');
+        $type = $this->getProperty('element-type');
+        if (!empty($search)) {
+            $c->where(array(
+                'name:LIKE' => '%' . $search . '%',
+                'OR:description:LIKE' => '%' . $search . '%',
+            ));
+        }
+
+        return $c;
+    }
+
+    public function prepareRow(xPDOObject $object)
+    {
         $objectArray = $object->toArray();
 
-        if($this->classKey == 'modCategory') {
+        if ($this->classKey == 'modCategory') {
             $objectArray['name'] = $objectArray['category'];
             unset($objectArray['category']);
         } else {
-            $category = $this->modx->getObject('modCategory',$objectArray['category']);
-            if($category) {
+            $category = $this->modx->getObject('modCategory', $objectArray['category']);
+            if ($category) {
                 $objectArray['category'] = $category->get('category');
             }
         }
-        if($objectArray['category'] == '0' || !$objectArray['category']) {
+        if ($objectArray['category'] == '0' || !$objectArray['category']) {
             $objectArray['category'] = '-';
         }
-        if($this->classKey == 'modTemplate') {
+        if ($this->classKey == 'modTemplate') {
             $objectArray['name'] = $objectArray['templatename'];
         }
         return $objectArray;
     }
 }
+
 return 'BatcherTemplateGetListProcessor';

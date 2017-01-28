@@ -35,30 +35,30 @@ if (empty($scriptProperties['resources'])) {
 
 /* validated createdby */
 if (!empty($scriptProperties['createdby'])) {
-    $createdby = $modx->getObject('modUser',$scriptProperties['createdby']);
+    $createdby = $modx->getObject('modUser', $scriptProperties['createdby']);
     if (empty($createdby)) return $modx->error->failure($modx->lexicon('batcher.user_err_nf'));
 }
 if (!empty($scriptProperties['editedby'])) {
-    $editedby = $modx->getObject('modUser',$scriptProperties['createdby']);
+    $editedby = $modx->getObject('modUser', $scriptProperties['createdby']);
     if (empty($editedby)) return $modx->error->failure($modx->lexicon('batcher.user_err_nf'));
 }
 if (!empty($scriptProperties['publishedby'])) {
-    $publishedby= $modx->getObject('modUser',$scriptProperties['publishedby']);
+    $publishedby = $modx->getObject('modUser', $scriptProperties['publishedby']);
     if (empty($publishedby)) return $modx->error->failure($modx->lexicon('batcher.user_err_nf'));
 }
 
 /* iterate over resources */
-$resourceIds = explode(',',$scriptProperties['resources']);
+$resourceIds = explode(',', $scriptProperties['resources']);
 foreach ($resourceIds as $resourceId) {
-    $resource = $modx->getObject('modResource',$resourceId);
+    $resource = $modx->getObject('modResource', $resourceId);
     if ($resource == null) continue;
 
-    if (!empty($scriptProperties['createdby'])) $resource->set('createdby',$scriptProperties['createdby']);
-    if (!empty($scriptProperties['editedby'])) $resource->set('editedby',$scriptProperties['editedby']);
-    if (!empty($scriptProperties['publishedby'])) $resource->set('publishedby',$scriptProperties['publishedby']);
-    
+    if (!empty($scriptProperties['createdby'])) $resource->set('createdby', $scriptProperties['createdby']);
+    if (!empty($scriptProperties['editedby'])) $resource->set('editedby', $scriptProperties['editedby']);
+    if (!empty($scriptProperties['publishedby'])) $resource->set('publishedby', $scriptProperties['publishedby']);
+
     if ($resource->save() === false) {
-        
+
     }
 }
 

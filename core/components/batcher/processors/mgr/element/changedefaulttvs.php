@@ -31,29 +31,29 @@ if (!$modx->hasPermission('save_template')) return $modx->error->failure($modx->
 
 
 if (empty($scriptProperties['template'])) return $modx->error->failure($modx->lexicon('batcher.template_err_ns'));
-$template = $modx->getObject('modTemplate',$scriptProperties['template']);
+$template = $modx->getObject('modTemplate', $scriptProperties['template']);
 if (empty($template)) return $modx->error->failure($modx->lexicon('batcher.template_err_nf'));
 
 if (empty($scriptProperties['tvs'])) return $modx->error->failure($modx->lexicon('batcher.tvs_err_ns'));
 
 $tvs = array();
 foreach ($scriptProperties as $key => $value) {
-    if (substr($key,0,2) != 'tv' || $key == 'tvs') continue;
-    $id = substr($key,2);
-    if (empty($scriptProperties['tv'.$id.'-checkbox'])) continue;
+    if (substr($key, 0, 2) != 'tv' || $key == 'tvs') continue;
+    $id = substr($key, 2);
+    if (empty($scriptProperties['tv' . $id . '-checkbox'])) continue;
 
-    $tv = $modx->getObject('modTemplateVar',$id);
+    $tv = $modx->getObject('modTemplateVar', $id);
     if (!$tv) continue;
 
     switch ($tv->get('type')) {
         case 'url':
-            if ($scriptProperties['tv'.$tv->get('id').'_prefix'] != '--') {
-                $value = str_replace(array('ftp://','http://'),'', $value);
-                $value = $scriptProperties['tv'.$tv->get('id').'_prefix'].$value;
+            if ($scriptProperties['tv' . $tv->get('id') . '_prefix'] != '--') {
+                $value = str_replace(array('ftp://', 'http://'), '', $value);
+                $value = $scriptProperties['tv' . $tv->get('id') . '_prefix'] . $value;
             }
             break;
         case 'date':
-            $value = empty($value) ? '' : strftime('%Y-%m-%d %H:%M:%S',strtotime($value));
+            $value = empty($value) ? '' : strftime('%Y-%m-%d %H:%M:%S', strtotime($value));
             break;
         default:
             /* handles checkboxes & multiple selects elements */
@@ -62,12 +62,12 @@ foreach ($scriptProperties as $key => $value) {
                 while (list($featureValue, $featureItem) = each($value)) {
                     $featureInsert[count($featureInsert)] = $featureItem;
                 }
-                $value = implode('||',$featureInsert);
+                $value = implode('||', $featureInsert);
             }
             break;
     }
 
-    $tv->set('default_text',$value);
+    $tv->set('default_text', $value);
     $tv->save();
 }
 return $modx->error->success();

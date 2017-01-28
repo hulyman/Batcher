@@ -34,20 +34,20 @@ if (empty($scriptProperties['templates'])) {
 }
 /* get parent */
 if (!empty($scriptProperties['category'])) {
-    $category = $modx->getObject('modCategory',$scriptProperties['category']);
-    if (empty($category)) return $modx->error->failure($modx->lexicon('batcher.category_err_nf',array('id' => $scriptProperties['category'])));
+    $category = $modx->getObject('modCategory', $scriptProperties['category']);
+    if (empty($category)) return $modx->error->failure($modx->lexicon('batcher.category_err_nf', array('id' => $scriptProperties['category'])));
 }
 
 /* iterate over resources */
-$templateIds = explode(',',$scriptProperties['templates']);
+$templateIds = explode(',', $scriptProperties['templates']);
 foreach ($templateIds as $templateId) {
-    $template = $modx->getObject('modTemplate',$templateId);
+    $template = $modx->getObject('modTemplate', $templateId);
     if ($template == null) continue;
 
-    $template->set('category',$scriptProperties['category']);
+    $template->set('category', $scriptProperties['category']);
 
     if ($template->save() === false) {
-        
+
     }
 }
 

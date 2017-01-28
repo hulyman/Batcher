@@ -33,9 +33,9 @@ if (empty($scriptProperties['resources'])) {
     return $modx->error->failure($modx->lexicon('batcher.resources_err_ns'));
 }
 
-$resourceIds = explode(',',$scriptProperties['resources']);
-if(is_array($resourceIds)){
-	$modx->removeCollection('modResource', array("id:IN" => array($scriptProperties['resources']) ));
+$resourceIds = explode(',', $scriptProperties['resources']);
+if (is_array($resourceIds)) {
+    $modx->removeCollection('modResource', array("id:IN" => array($scriptProperties['resources'])));
 }
 
 return $modx->error->success();

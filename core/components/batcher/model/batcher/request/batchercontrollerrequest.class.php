@@ -22,6 +22,7 @@
  * @package batcher
  */
 require_once MODX_CORE_PATH . 'model/modx/modrequest.class.php';
+
 /**
  * Encapsulates the interaction of MODx manager with an HTTP request.
  *
@@ -30,13 +31,15 @@ require_once MODX_CORE_PATH . 'model/modx/modrequest.class.php';
  * @package batcher
  * @extends modRequest
  */
-class BatcherControllerRequest extends modRequest {
+class BatcherControllerRequest extends modRequest
+{
     public $batcher = null;
     public $actionVar = 'action';
     public $defaultAction = 'home';
 
-    function __construct(Batcher &$batcher) {
-        parent :: __construct($batcher->modx);
+    function __construct(Batcher &$batcher)
+    {
+        parent:: __construct($batcher->modx);
         $this->batcher =& $batcher;
     }
 
@@ -46,7 +49,8 @@ class BatcherControllerRequest extends modRequest {
      *
      * {@inheritdoc}
      */
-    public function handleRequest() {
+    public function handleRequest()
+    {
         $this->loadErrorHandler();
 
         /* save page to manager object. allow custom actionVar choice for extending classes. */
@@ -61,18 +65,19 @@ class BatcherControllerRequest extends modRequest {
      * @access public
      * @return boolean True if the response is properly prepared.
      */
-    private function _respond() {
+    private function _respond()
+    {
         $modx =& $this->modx;
         $batcher =& $this->batcher;
-        $viewHeader = include $this->batcher->config['corePath'].'controllers/header.php';
+        $viewHeader = include $this->batcher->config['corePath'] . 'controllers/header.php';
 
-        $f = $this->batcher->config['corePath'].'controllers/'.$this->action.'.php';
+        $f = $this->batcher->config['corePath'] . 'controllers/' . $this->action . '.php';
         if (file_exists($f)) {
             $viewOutput = include $f;
         } else {
-            $viewOutput = 'Action not found: '.$f;
+            $viewOutput = 'Action not found: ' . $f;
         }
 
-        return $viewHeader.$viewOutput;
+        return $viewHeader . $viewOutput;
     }
 }

@@ -34,18 +34,18 @@ if (empty($scriptProperties['resources'])) {
 }
 
 /* iterate over resources */
-$resourceIds = explode(',',$scriptProperties['resources']);
+$resourceIds = explode(',', $scriptProperties['resources']);
 foreach ($resourceIds as $resourceId) {
-    $resource = $modx->getObject('modResource',$resourceId);
+    $resource = $modx->getObject('modResource', $resourceId);
     if ($resource == null) continue;
 
-    if (!empty($scriptProperties['createdon'])) $resource->set('createdon',$scriptProperties['createdon']);
-    if (!empty($scriptProperties['editedon'])) $resource->set('editedon',$scriptProperties['editedon']);
-    if (!empty($scriptProperties['pub_date'])) $resource->set('pub_date',$scriptProperties['pub_date']);
-    if (!empty($scriptProperties['unpub_date'])) $resource->set('unpub_date',$scriptProperties['unpub_date']);
+    if (!empty($scriptProperties['createdon'])) $resource->set('createdon', $scriptProperties['createdon']);
+    if (!empty($scriptProperties['editedon'])) $resource->set('editedon', $scriptProperties['editedon']);
+    if (!empty($scriptProperties['pub_date'])) $resource->set('pub_date', $scriptProperties['pub_date']);
+    if (!empty($scriptProperties['unpub_date'])) $resource->set('unpub_date', $scriptProperties['unpub_date']);
 
     if ($resource->save() === false) {
-        
+
     }
 }
 

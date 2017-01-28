@@ -23,7 +23,7 @@
  */
 /**
  * Default English language translation
- * 
+ *
  * @package batcher
  * @subpackage lexicon
  * @language en

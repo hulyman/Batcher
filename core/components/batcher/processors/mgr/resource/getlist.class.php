@@ -28,6 +28,7 @@
  * @subpackage processors
  */
 /* setup default properties */
+
 class BatcherResourceGetListProcessor extends modObjectGetListProcessor
 {
     public $classKey = 'modResource';
@@ -43,10 +44,10 @@ class BatcherResourceGetListProcessor extends modObjectGetListProcessor
         $search = $this->getProperty('search');
         if (!empty($search)) {
             $c->where(array(
-                'pagetitle:LIKE' => '%'.$search.'%',
-                'OR:description:LIKE' => '%'.$search.'%',
-                'OR:content:LIKE' => '%'.$search.'%',
-                'OR:id:LIKE' => '%'.$search.'%',
+                'pagetitle:LIKE' => '%' . $search . '%',
+                'OR:description:LIKE' => '%' . $search . '%',
+                'OR:content:LIKE' => '%' . $search . '%',
+                'OR:id:LIKE' => '%' . $search . '%',
             ));
         }
         $template = $this->getProperty('template');
@@ -55,7 +56,7 @@ class BatcherResourceGetListProcessor extends modObjectGetListProcessor
                 'template' => $template,
             ));
         }
-        
+
         $published = $this->getProperty('published');
         if (!empty($published) OR $published == '0') {
             $c->where(array(
@@ -75,8 +76,8 @@ class BatcherResourceGetListProcessor extends modObjectGetListProcessor
 
     public function prepareQueryAfterCount(xPDOQuery $c)
     {
-        $c->select(array('modResource.*','Template.templatename'));
-       
+        $c->select(array('modResource.*', 'Template.templatename'));
+
         return $c;
     }
 
@@ -88,4 +89,5 @@ class BatcherResourceGetListProcessor extends modObjectGetListProcessor
         return $objectArray;
     }
 }
+
 return 'BatcherResourceGetListProcessor';

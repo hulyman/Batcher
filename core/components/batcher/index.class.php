@@ -27,28 +27,38 @@
  */
 require_once __DIR__ . '/model/batcher/batcher.class.php';
 
-abstract class BatcherBaseManagerController extends modExtraManagerController {
+abstract class BatcherBaseManagerController extends modExtraManagerController
+{
     /** @var Batcher $batcher */
     public $batcher;
-    public function initialize() {
+
+    public function initialize()
+    {
         $this->batcher = new Batcher($this->modx);
 
-        $this->addCss($this->batcher->config['cssUrl'].'mgr.css');
-        $this->addJavascript($this->batcher->config['jsUrl'].'batcher.js');
+        $this->addCss($this->batcher->config['cssUrl'] . 'mgr.css');
+        $this->addJavascript($this->batcher->config['jsUrl'] . 'batcher.js');
         $this->addHtml('<script type="text/javascript">
         Ext.onReady(function() {
-            Batcher.config = '.$this->modx->toJSON($this->batcher->config).';
-            Batcher.config.connector_url = "'.$this->batcher->config['connectorUrl'].'";
+            Batcher.config = ' . $this->modx->toJSON($this->batcher->config) . ';
+            Batcher.config.connector_url = "' . $this->batcher->config['connectorUrl'] . '";
         });
         </script>');
     }
-    public function getLanguageTopics() {
+
+    public function getLanguageTopics()
+    {
         return array('batcher:default');
     }
-    public function checkPermissions() { return true;}
+
+    public function checkPermissions()
+    {
+        return true;
+    }
 }
 
-class IndexManagerController extends BatcherBaseManagerController {
+class IndexManagerController extends BatcherBaseManagerController
+{
     public static function getDefaultController()
     {
         return 'home';

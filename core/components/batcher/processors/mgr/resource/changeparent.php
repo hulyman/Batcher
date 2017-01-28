@@ -36,19 +36,19 @@ if (empty($scriptProperties['resources'])) {
 if (empty($scriptProperties['parent'])) {
     return $modx->error->failure($modx->lexicon('batcher.parent_err_ns'));
 }
-$parentResource = $modx->getObject('modResource',$scriptProperties['parent']);
+$parentResource = $modx->getObject('modResource', $scriptProperties['parent']);
 if (empty($parentResource)) return $modx->error->failure($modx->lexicon('batcher.parent_err_nf'));
 
 /* iterate over resources */
-$resourceIds = explode(',',$scriptProperties['resources']);
+$resourceIds = explode(',', $scriptProperties['resources']);
 foreach ($resourceIds as $resourceId) {
-    $resource = $modx->getObject('modResource',$resourceId);
+    $resource = $modx->getObject('modResource', $resourceId);
     if ($resource == null) continue;
 
-    $resource->set('parent',$scriptProperties['parent']);
+    $resource->set('parent', $scriptProperties['parent']);
 
     if ($resource->save() === false) {
-        
+
     }
 }
 
